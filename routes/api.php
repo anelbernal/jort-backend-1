@@ -1,6 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BidController;
+use App\Http\Controllers\BillingAddressController;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\PaymentIntentController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShippingAddressController;
+use App\Http\Controllers\WinnerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +29,51 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/bids', [BidController::class, 'index']);
+Route::get('/bids/{bid}', [BidController::class, 'show']);
+Route::post('/bids', [BidController::class, 'store']);
+Route::put('/bids/{bid}', [BidController::class, 'update']);
+Route::delete('/bids/{bid}', [BidController::class, 'destroy']);
+
+Route::get('/billing-addresses', [BillingAddressController::class, 'index']);
+Route::get('/billing-addresses/{address}', [BillingAddressController::class, 'show']);
+Route::post('/billing-addresses', [BillingAddressController::class, 'store']);
+Route::put('/billing-addresses/{address}', [BillingAddressController::class, 'update']);
+Route::delete('/billing-addresses/{address}', [BillingAddressController::class, 'destroy']);
+
+Route::get('/medias', [MediaController::class, 'index']);
+Route::get('/medias/{id}', [MediaController::class, 'show']);
+Route::post('/medias', [MediaController::class, 'store']);
+Route::put('/medias/{id}', [MediaController::class, 'update']);
+Route::delete('/medias/{id}', [MediaController::class, 'destroy']);
+
+Route::get('/payment-intents', [PaymentIntentController::class, 'index']);
+Route::get('/payment-intents/{id}', [PaymentIntentController::class, 'show']);
+Route::post('/payment-intents', [PaymentIntentController::class, 'store']);
+Route::put('/payment-intents/{id}', [PaymentIntentController::class, 'update']);
+Route::delete('/payment-intents/{id}', [PaymentIntentController::class, 'destroy']);
+
+Route::get('/payment-methods', [PaymentMethodController::class, 'index']);
+Route::get('/payment-methods/{id}', [PaymentMethodController::class, 'show']);
+Route::post('/payment-methods', [PaymentMethodController::class, 'store']);
+Route::put('/payment-methods/{id}', [PaymentMethodController::class, 'update']);
+Route::delete('/payment-methods/{id}', [PaymentMethodController::class, 'destroy']);
+
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{product}', [ProductController::class, 'show']);
+Route::post('/products', [ProductController::class, 'store']);
+Route::put('/products/{product}', [ProductController::class, 'update']);
+Route::delete('/products/{product}', [ProductController::class, 'destroy']);
+
+Route::get('/shipping-addresses', [ShippingAddressController::class, 'index']);
+Route::get('/shipping-addresses/{address}', [ShippingAddressController::class, 'show']);
+Route::post('/shipping-addresses', [ShippingAddressController::class, 'store']);
+Route::put('/shipping-addresses/{address}', [ShippingAddressController::class, 'update']);
+Route::delete('/shipping-addresses/{address}', [ShippingAddressController::class, 'destroy']);
+
+Route::get('/winners', [WinnerController::class, 'index']);
+Route::get('/winners/{winner}', [WinnerController::class, 'show']);
+Route::post('/winners', [WinnerController::class, 'store']);
+Route::put('/winners/{winner}', [WinnerController::class, 'update']);
+Route::delete('/winners/{winner}', [WinnerController::class, 'destroy']);
