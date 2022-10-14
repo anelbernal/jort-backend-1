@@ -36,13 +36,15 @@ class WinnerController extends Controller
         return new WinnerResource($winner);
     }
 
-    public function update (Winner $winner)
+    public function update (Request $request, Winner $winner)
     {
-        $data = $this->validateRequest();
+        $request()->validate([
+            'payment_status' => 'required'
+        ]);
 
-        $winner->update($data);
+        $winner->update($request->all());
 
-        return new WinnerResource($winner);
+        return $winner;
     }
 
     public function destroy (Winner $winner)

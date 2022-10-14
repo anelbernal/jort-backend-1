@@ -36,13 +36,15 @@ class PaymentMethodController extends Controller
         return new PaymentMethodResource($payment_method);
     }
 
-    public function update (PaymentMethod $payment_method)
+    public function update (Request $request, PaymentMethod $payment_method)
     {
-        $data = $this->validateRequest();
+        $request()->validate([
+            'last4' => 'required'
+        ]);
 
-        $payment_method->update($data);
+        $payment_method->update($request->all());
 
-        return new PaymentMethodResource($payment_method);
+        return $payment_method;
     }
 
     public function destroy (PaymentMethod $payment_method)

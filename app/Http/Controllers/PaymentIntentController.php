@@ -36,13 +36,15 @@ class PaymentIntentController extends Controller
         return new PaymentIntentResource($payment_intent);
     }
 
-    public function update (PaymentIntent $payment_intent)
+    public function update (Request $request, PaymentIntent $payment_intent)
     {
-        $data = $this->validateRequest();
+        $request()->validate([
+            'status' => 'required'
+        ]);
 
-        $payment_intent->update($data);
+        $payment_intent->update($request->all());
 
-        return new PaymentIntentResource($payment_intent);
+        return $payment_intent;
     }
 
     public function destroy (PaymentIntent $payment_intent)

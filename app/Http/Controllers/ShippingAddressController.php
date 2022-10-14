@@ -40,13 +40,20 @@ class ShippingAddressController extends Controller
         return new ShippingAddressResource($shipping_address);
     }
 
-    public function update (ShippingAddress $shipping_address)
+    public function update (Request $request, ShippingAddress $shipping_address)
     {
-        $data = $this->validateRequest();
+        $request()->validate([
+            'street_1' => 'required',
+            'street_2',
+            'city' => 'required',
+            'state' => 'required',
+            'postal_code' => 'required',
+            'is_primary'
+        ]);
 
-        $shipping_address->update($data);
+        $shipping_address->update($request->all());
 
-        return new ShippingAddressResource($shipping_address);
+        return $shipping_address;
     }
 
     public function destroy (ShippingAddress $shipping_address)

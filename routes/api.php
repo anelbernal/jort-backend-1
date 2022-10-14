@@ -37,28 +37,28 @@ Route::put('/bids/{bid}', [BidController::class, 'update']);
 Route::delete('/bids/{bid}', [BidController::class, 'destroy']);
 
 Route::get('/billing-addresses', [BillingAddressController::class, 'index']);
-Route::get('/billing-addresses/{address}', [BillingAddressController::class, 'show']);
+Route::get('/billing-addresses/{billing_address}', [BillingAddressController::class, 'show']);
 Route::post('/billing-addresses', [BillingAddressController::class, 'store']);
-Route::put('/billing-addresses/{address}', [BillingAddressController::class, 'update']);
-Route::delete('/billing-addresses/{address}', [BillingAddressController::class, 'destroy']);
+Route::put('/billing-addresses/{billing_address}', [BillingAddressController::class, 'update']);
+Route::delete('/billing-addresses/{billing_address}', [BillingAddressController::class, 'destroy']);
 
 Route::get('/medias', [MediaController::class, 'index']);
-Route::get('/medias/{id}', [MediaController::class, 'show']);
+Route::get('/medias/{media}', [MediaController::class, 'show']);
 Route::post('/medias', [MediaController::class, 'store']);
-Route::put('/medias/{id}', [MediaController::class, 'update']);
-Route::delete('/medias/{id}', [MediaController::class, 'destroy']);
+Route::put('/medias/{media}', [MediaController::class, 'update']);
+Route::delete('/medias/{media}', [MediaController::class, 'destroy']);
 
 Route::get('/payment-intents', [PaymentIntentController::class, 'index']);
-Route::get('/payment-intents/{id}', [PaymentIntentController::class, 'show']);
+Route::get('/payment-intents/{payment_intent}', [PaymentIntentController::class, 'show']);
 Route::post('/payment-intents', [PaymentIntentController::class, 'store']);
-Route::put('/payment-intents/{id}', [PaymentIntentController::class, 'update']);
-Route::delete('/payment-intents/{id}', [PaymentIntentController::class, 'destroy']);
+Route::put('/payment-intents/{payment_intent}', [PaymentIntentController::class, 'update']);
+Route::delete('/payment-intents/{payment_intent}', [PaymentIntentController::class, 'destroy']);
 
 Route::get('/payment-methods', [PaymentMethodController::class, 'index']);
-Route::get('/payment-methods/{id}', [PaymentMethodController::class, 'show']);
+Route::get('/payment-methods/{payment_method}', [PaymentMethodController::class, 'show']);
 Route::post('/payment-methods', [PaymentMethodController::class, 'store']);
-Route::put('/payment-methods/{id}', [PaymentMethodController::class, 'update']);
-Route::delete('/payment-methods/{id}', [PaymentMethodController::class, 'destroy']);
+Route::put('/payment-methods/{payment_method}', [PaymentMethodController::class, 'update']);
+Route::delete('/payment-methods/{payment_method}', [PaymentMethodController::class, 'destroy']);
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
@@ -67,10 +67,10 @@ Route::put('/products/{product}', [ProductController::class, 'update']);
 Route::delete('/products/{product}', [ProductController::class, 'destroy']);
 
 Route::get('/shipping-addresses', [ShippingAddressController::class, 'index']);
-Route::get('/shipping-addresses/{address}', [ShippingAddressController::class, 'show']);
+Route::get('/shipping-addresses/{shipping_address}', [ShippingAddressController::class, 'show']);
 Route::post('/shipping-addresses', [ShippingAddressController::class, 'store']);
-Route::put('/shipping-addresses/{address}', [ShippingAddressController::class, 'update']);
-Route::delete('/shipping-addresses/{address}', [ShippingAddressController::class, 'destroy']);
+Route::put('/shipping-addresses/{shipping_address}', [ShippingAddressController::class, 'update']);
+Route::delete('/shipping-addresses/{shipping_address}', [ShippingAddressController::class, 'destroy']);
 
 Route::get('/winners', [WinnerController::class, 'index']);
 Route::get('/winners/{winner}', [WinnerController::class, 'show']);

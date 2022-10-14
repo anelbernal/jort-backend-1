@@ -40,13 +40,20 @@ class BillingAddressController extends Controller
         return new BillingAddressResource($billing_address);
     }
 
-    public function update (BillingAddress $billing_address)
+    public function update (Request $request, BillingAddress $billing_address)
     {
-        $data = $this->validateRequest();
+        $request()->validate([
+            'street_1' => 'required',
+            'street_2',
+            'city' => 'required',
+            'state' => 'required',
+            'postal_code' => 'required',
+            'is_primary'
+        ]);
 
-        $billing_address->update($data);
+        $billing_address->update($request->all());
 
-        return new BillingAddressResource($billing_address);
+        return $billing_address;
     }
 
     public function destroy (BillingAddress $billing_address)

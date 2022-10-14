@@ -37,13 +37,16 @@ class MediaController extends Controller
         return new MediaResource($media);
     }
 
-    public function update (Media $media)
+    public function update (Request $request, Media $media)
     {
-        $data = $this->validateRequest();
+        $request()->validate([
+            'url' => 'required',
+            'desc' => 'required'
+        ]);
 
-        $media->update($data);
+        $media->update($request->all());
 
-        return new MediaResource($media);
+        return $media;
     }
 
     public function destroy (Media $media)

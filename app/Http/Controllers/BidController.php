@@ -36,13 +36,15 @@ class BidController extends Controller
         return new BidResource($bid);
     }
 
-    public function update (Bid $bid)
+    public function update (Request $request, Bid $bid)
     {
-        $data = $this->validateRequest();
+        $request()->validate([
+            'bid_amount' => 'required'
+        ]);
 
-        $bid->update($data);
+        $bid->update($request->all());
 
-        return new BidResource($bid);
+        return $bid;
     }
 
     public function destroy (Bid $bid)
