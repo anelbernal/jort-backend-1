@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -16,8 +18,6 @@ class AuthController extends Controller
             'password' => 'required|min:8',
         ]);
 
-        $userid = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 20);
- 
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -54,5 +54,37 @@ class AuthController extends Controller
         ];
 
         return response($response, 201);
+    }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect;
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+            $findUser = User::where('email', $user->email)->first();
+            if ($findUser) {
+                $response = [
+                    'user' => $findUser,
+                    201
+                ];
+            } else {
+                $newUser = User::create([
+                    'email' => $user->email,
+                    'password' => bcrypt($user->name . 'googleAuth')
+                ]);
+                $response = [
+                    'user' => $newUser,
+                    201,
+                ];
+            }
+        } catch (Exception $e) {
+            $response = ['message' => 'Error. Try again.', 401];
+        }
+
+        return response($response);
     }
 }
