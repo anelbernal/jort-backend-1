@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('product_id');
-            $table->foreign('product_id')->references('product_id')->on('products');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->float('bid_amount', 8, 2);
             $table->string('email');
             $table->foreign('email')->references('email')->on('users');

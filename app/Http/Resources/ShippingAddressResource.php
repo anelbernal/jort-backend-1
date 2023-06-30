@@ -16,6 +16,7 @@ class ShippingAddressResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'user_id' => $this->user_id,
             'street_1' => $this->street_1,
             'street_2' => $this->street_2,
             'city' => $this->city,

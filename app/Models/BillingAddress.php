@@ -9,7 +9,7 @@ class BillingAddress extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['street_1', 'street_2', 'city', 'state', 'postal_code', 'is_primary'];
+    protected $fillable = ['user_id', 'street_1', 'street_2', 'city', 'state', 'postal_code', 'is_primary'];
 
     public function user()
     {

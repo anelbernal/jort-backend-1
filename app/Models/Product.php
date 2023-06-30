@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'title', 'short_desc', 'long_desc', 'category', 'current_bid', 'increment'];
+    protected $fillable = ['seller_id', 'title', 'short_desc', 'long_desc', 'category', 'current_bid', 'increment', 'new_bid', 'pre_timer', 'current_timer', 'bid_level', 'stripeid'];
 
     public function seller()
     {

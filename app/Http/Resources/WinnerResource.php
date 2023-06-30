@@ -16,7 +16,9 @@ class WinnerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'payment_status' => $this->id
+            "user_id" => $this->user_id,
+            "product_id" => $this->product_id,
+            'payment_status' => $this->payment_status
         ];
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\WinnerMail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Winner;
 use App\Http\Resources\WinnerResource;
-
+use App\Models\User;
 
 class WinnerController extends Controller
 {
@@ -23,17 +25,23 @@ class WinnerController extends Controller
     protected function validateRequest ()
     {
         return request()->validate([
-            'payment_status' => 'required'
+            'payment_status' => 'required',
+            'user_id' => 'required',
+            'product_id' => 'required',
         ]);
     }
 
-    public function store ()
+    public function store (Request $request)
     {
         $data = $this->validateRequest();
 
         $winner = Winner::create($data);
 
         return new WinnerResource($winner);
+
+        $winner_info = User::find($winner['user_id']);
+
+        Mail::to($winner_info->email)->send(new WinnerMail($winner));
     }
 
     public function update (Request $request, Winner $winner)

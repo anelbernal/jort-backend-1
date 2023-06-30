@@ -14,6 +14,12 @@ class ShippingAddressController extends Controller
         return ShippingAddressResource::collection($shipping_addresses);
     }
 
+    public function userIndex ($id)
+    {
+        $shipping_addresses = ShippingAddress::orderBy('id')->where('user_id', $id)->get();
+        return ShippingAddressResource::collection($shipping_addresses);
+    }
+
     public function show (ShippingAddress $shipping_address)
     {
         return new ShippingAddressResource($shipping_address);
@@ -22,12 +28,13 @@ class ShippingAddressController extends Controller
     protected function validateRequest ()
     {
         return request()->validate([
+            'user_id' => 'required',
             'street_1' => 'required',
             'street_2',
             'city' => 'required',
             'state' => 'required',
             'postal_code' => 'required',
-            'is_primary'
+            'is_primary' => 'required'
         ]);
     }
 
@@ -42,16 +49,14 @@ class ShippingAddressController extends Controller
 
     public function update (Request $request, ShippingAddress $shipping_address)
     {
-        $request()->validate([
-            'street_1' => 'required',
-            'street_2',
-            'city' => 'required',
-            'state' => 'required',
-            'postal_code' => 'required',
-            'is_primary'
+        $shipping_address->update([
+            'street_1' => $request->street_1,
+            'street_2' => $request->street_2,
+            'city' => $request->city,
+            'state' => $request->state,
+            'postal_code' => $request->postal_code,
+            'is_primary' => $request->is_primary
         ]);
-
-        $shipping_address->update($request->all());
 
         return $shipping_address;
     }

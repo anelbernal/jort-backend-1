@@ -23,7 +23,11 @@ class BidController extends Controller
     protected function validateRequest ()
     {
         return request()->validate([
-            'bid_amount' => 'required'
+            'user_id' => 'required',
+            'product_id' => 'required',
+            'bid_amount' => 'required',
+            'first_name' => 'required',
+            'email' => 'required'
         ]);
     }
 

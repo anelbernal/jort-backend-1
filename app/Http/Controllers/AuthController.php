@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeMail;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -28,6 +30,8 @@ class AuthController extends Controller
         $token = $user->createToken('LaravelAuthApp')->accessToken;
  
         return response()->json(['token' => $token], 200);
+
+        Mail::to($request->email)->send(new WelcomeMail($user));
     }
 
     public function login(Request $request) {
@@ -58,7 +62,7 @@ class AuthController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect;
+        return Socialite::driver('google')->redirect();
     }
 
     public function handleGoogleCallback()
@@ -74,7 +78,8 @@ class AuthController extends Controller
             } else {
                 $newUser = User::create([
                     'email' => $user->email,
-                    'password' => bcrypt($user->name . 'googleAuth')
+                    'password' => bcrypt($user->name . 'googleAuth'),
+                    'photo_url' => $user->avatar
                 ]);
                 $response = [
                     'user' => $newUser,
@@ -86,5 +91,12 @@ class AuthController extends Controller
         }
 
         return response($response);
+    }
+
+    public function relogin(Request $request, User $user)
+    {
+        $user = User::where('remember_token', $request['token'])->first();
+
+        return $user;
     }
 }

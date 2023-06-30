@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('seller_id');
             $table->foreign('seller_id')->references('id')->on('users');
-            $table->string('product_id')->unique();
             $table->string('title');
             $table->mediumText('short_desc');
             $table->longText('long_desc');

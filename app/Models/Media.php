@@ -9,7 +9,7 @@ class Media extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['url', 'desc'];
+    protected $fillable = ['product_id', 'url'];
 
     public function product()
     {

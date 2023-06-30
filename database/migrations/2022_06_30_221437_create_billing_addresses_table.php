@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('street_1');
-            $table->string('street_2');
+            $table->string('street_2')->nullable();
             $table->string('city');
             $table->string('state');
             $table->string('postal_code');

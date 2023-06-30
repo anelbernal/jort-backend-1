@@ -23,8 +23,8 @@ class MediaController extends Controller
     protected function validateRequest ()
     {
         return request()->validate([
-            'url' => 'required',
-            'desc' => 'required'
+            'product_id' => 'required',
+            'url' => 'required'
         ]);
     }
 
@@ -40,8 +40,7 @@ class MediaController extends Controller
     public function update (Request $request, Media $media)
     {
         $request()->validate([
-            'url' => 'required',
-            'desc' => 'required'
+            'url' => 'required'
         ]);
 
         $media->update($request->all());

@@ -16,7 +16,7 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'product_id' => $this->product_id,
+            'seller_id' => $this->seller_id,
             'title' => $this->title,
             'short_desc' => $this->short_desc,
             'long_desc' => $this->long_desc,
@@ -25,13 +25,15 @@ class ProductResource extends JsonResource
             'current_timer' => $this->current_timer,
             'current_bid' => $this->current_bid,
             'increment' => $this->increment,
+            'new_bid' => $this->new_bid,
             'bid_level' => $this->bid_level,
+            'stripeid' => $this->stripeid,
             'sold_timer' => $this->sold_timer,
             'del_timer' => $this->del_timer,
             'bids' => BidResource::collection($this->bids),
             'medias' => MediaResource::collection($this->medias),
-            'winners' => WinnerResource::collection($this->winners),
-            'payment_intents' => PaymentIntentResource::collection($this->payment_intents)
+            // 'winners' => WinnerResource::collection($this->winners),
+            // 'payment_intents' => PaymentIntentResource::collection($this->payment_intents)
         ];
     }
 }

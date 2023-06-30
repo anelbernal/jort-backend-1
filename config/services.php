@@ -37,4 +37,8 @@ return [
         'redirect' => env('GOOGLE_REDIRECT'),
     ],
 
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET_KEY'),
+    ],
+
 ];

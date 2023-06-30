@@ -9,7 +9,7 @@ class Winner extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['payment_status'];
+    protected $fillable = ['user_id', 'product_id', 'payment_status'];
 
     public function product()
     {
