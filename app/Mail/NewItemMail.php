@@ -16,6 +16,7 @@ class NewItemMail extends Mailable
     /**
      * Create a new message instance.
      *
+     * @pram Seller $seller
      * @return void
      */
     public function __construct($seller)

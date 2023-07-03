@@ -16,6 +16,7 @@ class WelcomeMail extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param mixed $data
      * @return void
      */
     public function __construct($data)

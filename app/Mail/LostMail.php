@@ -28,6 +28,8 @@ class LostMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        //wha tis the actual view name? there is a place holder for now.
+        return $this->view('emails.lostMail'); 
+                    
     }
 }

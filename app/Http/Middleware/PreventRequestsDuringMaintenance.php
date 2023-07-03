@@ -12,6 +12,8 @@ class PreventRequestsDuringMaintenance extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        '/public',
+        'api/*',
+        // Add more URIs here
     ];
 }

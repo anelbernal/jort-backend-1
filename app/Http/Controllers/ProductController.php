@@ -13,18 +13,18 @@ use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
-    public function index ()
+    public function index()
     {
         $products = Product::orderBy('id')->get();
         return ProductResource::collection($products);
     }
 
-    public function show (Product $product)
+    public function show(Product $product)
     {
         return new ProductResource($product);
     }
 
-    protected function validateRequest ()
+    protected function validateRequest()
     {
         return request()->validate([
             'seller_id' => 'required',
@@ -39,46 +39,52 @@ class ProductController extends Controller
         ]);
     }
 
-    public function sendBidEmail(Request $data) {
-        $this->validate($data, [
+    public function sendBidEmail(Request $request)
+    {
+        $validatedData = $request->validate([
             'first_name' => 'required',
             'email' => 'required|email',
             'title' => 'required'
         ]);
 
-        Mail::to($data->email)->send(new BidAlertMail($data));
+        Mail::to($validatedData['email'])->send(new BidAlertMail($validatedData));
     }
 
-    public function store ()
+    public function store()
     {
         $data = $this->validateRequest();
 
         $data['creation_time'] = Carbon::now();
-
         $data['pre_timer'] = Carbon::now()->addHours(6);
 
         $product = Product::create($data);
 
-        return new ProductResource($product);
-
-        $seller = User::find($data['seller_id']);
+        $seller = User::findOrFail($data['seller_id']);
 
         Mail::to($seller->email)->send(new NewItemMail($seller));
+
+        return new ProductResource($product);
     }
 
-    public function update (Request $request, Product $product)
+    public function update(Request $request, Product $product)
     {
+        $validatedData = $request->validate([
+            'current_bid' => 'required',
+            'bid_level' => 'required',
+            'new_bid' => 'required'
+        ]);
+
         $product->update([
-            'current_bid' => $request->current_bid,
-            'bid_level' => $request->bid_level,
-            'new_bid' => $request->new_bid,
+            'current_bid' => $validatedData['current_bid'],
+            'bid_level' => $validatedData['bid_level'],
+            'new_bid' => $validatedData['new_bid'],
             'current_timer' => Carbon::now()->addSeconds(60)
         ]);
 
         return $product;
     }
 
-    public function destroy (Product $product)
+    public function destroy(Product $product)
     {
         $product->delete();
 

@@ -11,7 +11,8 @@ class MediaController extends Controller
 {
     public function index ()
     {
-        $medias = Media::orderBy('id')->get();
+        //pagination will help improve preformance and reduce memory usage
+        $medias = Media::orderBy('id')->paginate(10);
         return MediaResource::collection($medias);
     }
 
@@ -28,13 +29,13 @@ class MediaController extends Controller
         ]);
     }
 
-    public function store ()
+    public function store (Request $request)
     {
         $data = $this->validateRequest();
 
         $media = Media::create($data);
 
-        return new MediaResource($media);
+        return (new MediaResource($media))->response()->setStatusCode(201);
     }
 
     public function update (Request $request, Media $media)
@@ -43,9 +44,9 @@ class MediaController extends Controller
             'url' => 'required'
         ]);
 
-        $media->update($request->all());
+        $media->update($request->only('url'));
 
-        return $media;
+        return new MediaResource($media);
     }
 
     public function destroy (Media $media)

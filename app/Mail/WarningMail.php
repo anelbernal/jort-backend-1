@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeMail extends Mailable
+class WarningMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,6 +16,7 @@ class WelcomeMail extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param mixed data
      * @return void
      */
     public function __construct($data)

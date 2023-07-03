@@ -20,3 +20,4 @@ class PaymentMethodResource extends JsonResource
         ];
     }
 }
+

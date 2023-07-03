@@ -6,28 +6,27 @@ use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Http\Resources\PaymentMethodResource;
 
-
 class PaymentMethodController extends Controller
 {
-    public function index ()
+    public function index()
     {
-        $payment_methods = PaymentMethod::orderBy('id')->get();
+        $payment_methods = PaymentMethod::orderBy('id')->paginate(10);
         return PaymentMethodResource::collection($payment_methods);
     }
 
-    public function show (PaymentMethod $payment_method)
+    public function show(PaymentMethod $payment_method)
     {
         return new PaymentMethodResource($payment_method);
     }
 
-    protected function validateRequest ()
+    protected function validateRequest()
     {
         return request()->validate([
             'last4' => 'required'
         ]);
     }
 
-    public function store ()
+    public function store()
     {
         $data = $this->validateRequest();
 
@@ -36,9 +35,9 @@ class PaymentMethodController extends Controller
         return new PaymentMethodResource($payment_method);
     }
 
-    public function update (Request $request, PaymentMethod $payment_method)
+    public function update(Request $request, PaymentMethod $payment_method)
     {
-        $request()->validate([
+        $request->validate([
             'last4' => 'required'
         ]);
 
@@ -47,7 +46,7 @@ class PaymentMethodController extends Controller
         return $payment_method;
     }
 
-    public function destroy (PaymentMethod $payment_method)
+    public function destroy(PaymentMethod $payment_method)
     {
         $payment_method->delete();
 

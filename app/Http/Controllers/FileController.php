@@ -32,3 +32,5 @@ class FileController extends Controller
         return response('https://jortinc.com/backend/storage/app/public/'.$fileName);
     }
 }
+
+//please ensure that you have the necessary models and configuration iin place for this code to work properly, this code assumes the presence of a file model and the configuration of a public disk in the laravel filesystem configuration file ('config/filesystems.php)

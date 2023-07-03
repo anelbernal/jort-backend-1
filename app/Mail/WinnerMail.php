@@ -16,6 +16,7 @@ class WinnerMail extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param mixed $winner
      * @return void
      */
     public function __construct($winner)

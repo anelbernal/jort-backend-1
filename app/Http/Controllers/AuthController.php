@@ -12,27 +12,16 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
-        $this->validate($request, [
-            'first_name' => 'required|min:4',
-            'last_name' => 'required|min:4',
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-        ]);
+    public function update(Request $request, Bid $bid)
+{
+    $request->validate([
+        'bid_amount' => 'required'
+    ]);
 
-        $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-       
-        $token = $user->createToken('LaravelAuthApp')->accessToken;
- 
-        return response()->json(['token' => $token], 200);
+    $bid->update($request->all());
 
-        Mail::to($request->email)->send(new WelcomeMail($user));
-    }
+    return $bid;
+}
 
     public function login(Request $request) {
         $fields = $request->validate([

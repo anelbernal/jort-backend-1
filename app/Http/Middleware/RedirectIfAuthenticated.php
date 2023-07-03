@@ -21,6 +21,10 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
+        Route::middleware(['guest'])->group(function () {
+            // Routes accessible only to unauthenticated users
+        });
+
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 return redirect(RouteServiceProvider::HOME);

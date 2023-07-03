@@ -42,7 +42,7 @@ class BidController extends Controller
 
     public function update (Request $request, Bid $bid)
     {
-        $request()->validate([
+        $request->validate([
             'bid_amount' => 'required'
         ]);
 
